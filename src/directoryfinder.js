@@ -1,6 +1,9 @@
 import React from 'react';
 const {dialog } = require('electron').remote;
 
+const STYLE = {
+  'invalid' : {'color' : 'red'}
+}
 const getFile = () => {
     return dialog.showOpenDialog({properties: ['openDirectory']});
 }
@@ -22,23 +25,27 @@ export default class DirectoryFinder extends React.Component {
   }
 
   componentDidMount() {
+    /*
     if (! this.props.directory){
       this._dialog();
     }
+    */
   }
 
   render() {
     return (<div className="row">
       <div className="col-md-12">
         <h3>Directory</h3>
-        <form className="form-inline">
-          <div className="form-group col-md-1">
+        <form>
+          <div className="form-group">
               <p className="form-control">
-                {this.props.directory}
+                {this.props.directory.name}
               </p>
+              {(this.props.directory.name && ! this.props.directory.isValid) ? 
+                  (<p style={STYLE.invalid}>Not a valid directory</p>) : ''}
           </div>
-          <div className="form-group col-md-1">
-              <button className="btn btn-default" onClick={this._dialog}>
+          <div className="form-group">
+              <button className="btn btn-primary" onClick={this._dialog}>
                 Change
               </button>
           </div>
