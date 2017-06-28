@@ -81,11 +81,14 @@ export default class App extends React.Component {
             <DirectoryFinder onChange={this._changeDir} directory={this.state.directory} />
           </div>
         </div>
-        <div className="row" style={{'marginTop': 10}}>
-          <div className="col-md-12">        
-            <SoftwareContent content={this.state.content.doc} />
+        {! this.state.content.error && this.state.content.doc ? (
+          <div className="row" style={{'marginTop': 10}}>
+            <div className="col-md-12">        
+              <SoftwareContent content={this.state.content.doc} />
+            </div>
           </div>
-        </div>        
+          ) : ''
+        }
       </div>);
   }
 }
