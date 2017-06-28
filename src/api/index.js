@@ -20,3 +20,8 @@ export const readContent = (dir) => {
     return {'error': e, 'doc': null};
   }
 }
+
+export const validateInventory = (inv) => {
+  console.log('check if ok');
+  console.log(inv);
+} 

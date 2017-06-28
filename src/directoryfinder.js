@@ -37,21 +37,24 @@ export default class DirectoryFinder extends React.Component {
   }
 
   render() {
+    let formClass = this.props.directory.name && ! this.props.directory.isValid ? 'has-danger' : 'has-sucess';
     return (<div className="card">
       <div className="card-block">
-        <h4>1. select source</h4>
-        <form>
-          <div className="form-group">
-              <input type="text" className="form-control" 
-                placeholder="Select source directory" value={this.props.directory.name || ''} disabled/>              
-              {(this.props.directory.name && ! this.props.directory.isValid) ? 
-                  (<p style={STYLE.invalid}>Not a valid directory</p>) : ''}
-          </div>
-          <div className="form-group">
-              <button type="submit" className="btn btn-primary" onClick={this._dialog}>
-                Change
-              </button>
-          </div>
+        <h4>2. select directory with upgrade package</h4>
+        <form className={formClass}>
+            <div className="row">
+              <div className="col-6">
+                <input type="text" className="form-control" 
+                  placeholder="Select source directory" value={this.props.directory.name || ''} disabled/>              
+                {(this.props.directory.name && ! this.props.directory.isValid) ? 
+                    (<p className="form-control-static"style={STYLE.invalid}>Not a valid directory</p>) : ''}
+              </div>
+              <div className="col-2">
+                <button type="submit" className="btn btn-default" onClick={this._dialog}>
+                  Change
+                </button>
+              </div>
+            </div>
         </form>
       </div>
     </div>);
