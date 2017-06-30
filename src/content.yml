@@ -1,0 +1,104 @@
+# this is the new format of the content.yml file
+# this is the input for the install (initial set-up) and for the update (on site)
+
+components:
+  infra:
+    docker:
+      postgres:
+        tag: "0.2.0"
+        id: "67687b0b3340"
+        file: "evs-phoenix-postgres_0.2.0.docker.tar"
+        name: "evs-phoenix-postgres"
+
+      zookeeper:
+        tag: "latest"
+        id: "351aa00d2fe9"
+        file: "evs-infra-zookeeper_latest.docker.tar"
+        name: "evs-infra-zookeeper"
+
+      livepamcore_manager:
+        tag: "0.1.1"
+        id: "1dee7ae7ab39"
+        file: "livepamcore-manager_0.1.1.docker.tar"
+        name: "livepamcore-manager"
+
+      kafka:
+        tag: "latest"
+        id: "85fe140f5a9b"
+        file: "evs-infra-kafka_latest.docker.tar"
+        name: "evs-infra-kafka"
+
+      pgpool:
+        tag: "0.2.0"
+        id: "2697fba9fdc2"
+        file: "evs-phoenix-pgpool_0.2.0.docker.tar"
+        name: "evs-phoenix-pgpool"
+
+      splunklight:
+        tag: "0.1.0"
+        id: "db312ce71614"
+        file: "evs-phoenix-splunklight_0.1.0.docker.tar"
+        name: "evs-phoenix-splunklight"
+
+      registrator:
+        tag: "latest"
+        id: "3b59190c6c80"
+        file: "evs-infra-registrator_latest.docker.tar"
+        name: "evs-infra-registrator"
+
+    tar:
+      splunk:
+        file: "splunkforwarder-6.6.0-1c4f3bbe1aea-Linux-x86_64.tgz"
+        hash: "eb74365a514ea2045bbf06ade4f85108"
+        hash_type: "MD5"
+  livepamcore:
+     docker:
+       media-assets:
+         tag: "0.0.1-SNAPSHOT.160.e2fca45b8489a6851d3926f8ae2d06e1bb68a073"
+         id: "4fecc9e6f0f8"
+         file: "evs-phoenix-asset_0.0.1-SNAPSHOT.160.e2fca45b8489a6851d3926f8ae2d06e1bb68a073.docker.tar"
+         name: "evs-phoenix-asset"
+
+       playout:
+         tag: "0.0.1-SNAPSHOT.192.e38a103fa5183f31a558631d93f47b6e92dc626e"
+         id: "7e32dc798526"
+         file: "evs-phoenix-playout_0.0.1-SNAPSHOT.192.e38a103fa5183f31a558631d93f47b6e92dc626e.docker.tar"
+         name: "evs-phoenix-playout"
+
+       ingest:
+         tag: "1.0.0-SNAPSHOT.125.179437f0aa04fff08782fe83435a150ee139ad9a"
+         id: "5f5c5dba0537"
+         file: "evs-phoenix-ingest_1.0.0-SNAPSHOT.125.179437f0aa04fff08782fe83435a150ee139ad9a.docker.tar"
+         name: "evs-phoenix-ingest"
+
+       nginx_reverse_proxy:
+         tag: "0.1.0.28.a2bd9755e08181a7a9738cf5832e7eb02f56b2df"
+         id: "aec6013bb7e6"
+         file: "evs-phoenix-ui_0.1.0.28.a2bd9755e08181a7a9738cf5832e7eb02f56b2df.docker.tar"
+         name: "evs-phoenix-ui"
+
+  xone:
+    docker:
+      xone:
+        tag: "0.1.1-SNAPSHOT"
+        id: "042508024292"
+        file: "evs-xone-api_0.1.1-SNAPSHOT.docker.tar"
+        name: "evs-xone-api"
+
+    rpm:
+      xone-client:
+        name: evs-xone-client
+        version: 0.1.0-17.6767111
+        file: evs-xone-client. 0.1.0-17.6767111.rpm
+
+  sxengine:
+    rpm:
+      evs-sx-engine:
+        name: evs-sxengine
+        version: 0.5.11
+        file: evs-sxengine.0.5.11.rpm
+
+product:
+  name: xone
+  version: 0.1
+

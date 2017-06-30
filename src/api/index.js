@@ -23,5 +23,5 @@ export const readContent = (dir) => {
 
 export const validateInventory = (inv) => {
   console.log('check if ok');
-  console.log(inv);
+  return true;
 } 
