@@ -2,24 +2,30 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
 class Inventory extends Component{
+  
   constructor(props){
     super(props);
-    this.state = {'hostname': this.props.inventory.hostname, 'ip': this.props.inventory.ip}
     this.handleIPChange = this.handleIPChange.bind(this);
     this.handleHostChange = this.handleHostChange.bind(this);
   }
 
+  componentDidMount(){
+    console.log(this.props);
+    if (! this.props.inventory.hostname){
+      this.props.getInventory();
+    }
+  }
+
   handleIPChange(evt){
-    this.setState({'ip': evt.target.value});
-    this.props.onChange(this.state);
+    this.props.setInventory({'ip': evt.target.value,'hostname': this.props.inventory.hostname});
   }
 
   handleHostChange(evt){
-    this.setState({'hostname': evt.target.value});
-    this.props.onChange(this.state);
+    this.props.setInventory({'ip': this.props.inventory.ip,'hostname': evt.target.value});
   }
 
   render(){
+    let {hostname,ip} = this.props.inventory;
     return (
       <div>
         <h2>Step 1. target server</h2>
@@ -34,12 +40,8 @@ class Inventory extends Component{
                       id="hostname" 
                       aria-describedby="hostnameHelp" 
                       placeholder="Enter hostname"
-                      value={this.state.hostname}
+                      value={hostname}
                       onChange={this.handleHostChange}
-                      ref={(input)=>{
-                        this._hostname = input;
-                          }
-                        }
                       />
                     <small id="hostnameHelp" className="form-text text-muted">The result of the hostname command</small>
                   </div>
@@ -49,7 +51,7 @@ class Inventory extends Component{
                       type="text" 
                       className="form-control" 
                       id="IP address" 
-                      value={this.state.ip}
+                      value={ip}
                       onChange={this.handleIPChange}
                       aria-describedby="IPHelp" placeholder="Enter IP or 127.0.0.1 for local install" />
                     <small id="IPHelp" className="form-text text-muted">set to 127.0.0.1 when working locally</small>
@@ -65,7 +67,14 @@ class Inventory extends Component{
 }
 
 Inventory.PropTypes = {
-  'onChange' : PropTypes.func.isRequired
+  'initInventory' : PropTypes.func.isRequired,
+  'setInventory' : PropTypes.func.isRequired,
+  'inventory': PropTypes.shape({
+    hostname: PropTypes.string,
+    ip: PropTypes.string,
+    isValid: PropTypes.bool,
+    error: PropTypes.string
+  })
 }
 
 export default Inventory

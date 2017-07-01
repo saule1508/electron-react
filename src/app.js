@@ -2,17 +2,17 @@ import React from 'react';
 const {spawn} = require('child_process');
 const os = require('os');
 import DirectoryFinder from './components/directoryfinder'
-import Inventory from './components/inventory'
+import InventoryContainer from './components/inventorycontainer'
 import SoftwareContent from './components/softwarecontent'
-import { validateDirectory, readContent, validateInventory } from './api/index.js'
+import { validateDirectory, readContent } from './api/index.js'
+import { validateInventory } from './actions/inventory';
 import Navigator from './components/navigator'
 
-export default class App extends React.Component {
+class App extends React.Component {
 
   constructor(props){
     super(props);
     this._changeDir = this._changeDir.bind(this);
-    this._changeInventory = this._changeInventory.bind(this);
     this._previous = this._previous.bind(this);
     this._next = this._next.bind(this);
 
@@ -24,11 +24,6 @@ export default class App extends React.Component {
       'content': {
         'error': null,
         'doc': null
-      },
-      'inventory': {
-        'hostname': os.hostname(),
-        'ip': '127.0.0.1',
-        'isValid': null
       }
     }
   }
@@ -46,16 +41,18 @@ export default class App extends React.Component {
     }
   }
 
-  _changeInventory(inv){
-    this.setState({inventory: Object.assign({},inv)});
-  }
 
   _validateInventory(inv){
-    let isValid = validateInventory(inv);
-    this.setState({inventory: Object.assign({},inv, {isValid: isValid})});
-    if (isValid){
+    
+    this.props.validateInventory().then(()=>{
+      console.log(this.props.inventory);
+    });
+    /*
+    if (this.props.inventory.isValid){
       this.setState({'step': 2});      
     }
+    */
+    
   }
 
   _previous(){
@@ -67,8 +64,8 @@ export default class App extends React.Component {
 
   _next(){
     if (this.state.step === 1){
-      // validate the inventory
-
+      this._validateInventory();
+      return;
     }
     if (this.state.step < 4){
       this.setState({'step': this.state.step + 1})
@@ -103,7 +100,7 @@ export default class App extends React.Component {
         </div>
         <div className="row" hidden={this.state.step !== 1} >
           <div className="col-md-6">
-            <Inventory onChange={this._changeInventory} inventory={this.state.inventory} />
+            <InventoryContainer  />
           </div>
         </div>
         <div className="row" style={{'marginTop': 10}} hidden={this.state.step !== 2} >
@@ -122,3 +119,5 @@ export default class App extends React.Component {
       );
   }
 }
+
+export default App
