@@ -1,19 +1,20 @@
 import React from 'react';
-const {dialog } = require('electron').remote;
-const {app} = require('electron').remote;
+import PropTypes from 'prop-types'
+const { dialog } = require('electron').remote;
+const { app } = require('electron').remote;
 
 
 const STYLE = {
-  'invalid' : {'color' : 'red'}
+  'invalid' : {'color' : 'red'},
+  'valid' : {'color' : 'green'}
 }
-const getFile = () => {
-  
-  
-  return dialog.showOpenDialog({title: 'Package location', defaultPath: app.getAppPath(),properties: ['openDirectory']});
+
+const getFile = (defaultDir) => {
+  return dialog.showOpenDialog({title: 'Package location', defaultPath: defaultDir,properties: ['openDirectory']});
 }
 
 
-export default class DirectoryFinder extends React.Component {
+class DirectoryFinder extends React.Component {
 
   constructor(props){
     super(props);    
@@ -24,20 +25,23 @@ export default class DirectoryFinder extends React.Component {
     if (evt){
       evt.preventDefault();
     }
-    let myFile = getFile();
-    this.props.onChange(myFile[0]);
-  }
-
-  componentDidMount() {
-    /*
-    if (! this.props.directory){
-      this._dialog();
+    let myFile = getFile(this.props.name || app.getAppPath());
+    if (myFile){
+      this.props.validateDirectory(myFile[0]);
     }
-    */
   }
+  /*
+  componentDidMount() {
+    
+    if (! this.props.name){
+      getFile(app.getAppPath());
+    }
+  }
+  */
 
   render() {
-    let formClass = this.props.directory.name && ! this.props.directory.isValid ? 'has-danger' : 'has-sucess';
+    let { name, isValid } = this.props;
+    let formClass = name && ! isValid ? 'has-danger' : 'has-sucess';
     return (
       <div>
         <h4>Step 2. select directory with upgrade package</h4>
@@ -47,9 +51,11 @@ export default class DirectoryFinder extends React.Component {
                 <div className="row">
                   <div className="col-6">
                     <input type="text" className="form-control" 
-                      placeholder="Select source directory" value={this.props.directory.name || ''} disabled/>              
-                    {(this.props.directory.name && ! this.props.directory.isValid) ? 
+                      placeholder="Select source directory" value={name || ''} disabled/>              
+                    {(name && ! isValid) ? 
                         (<p className="form-control-static"style={STYLE.invalid}>Not a valid directory</p>) : ''}
+                    {(name && isValid) ? 
+                        (<p className="form-control-static"style={STYLE.valid}>Directory is valid</p>) : ''}
                   </div>
                   <div className="col-2">
                     <button type="submit" className="btn btn-default" onClick={this._dialog}>
@@ -63,3 +69,11 @@ export default class DirectoryFinder extends React.Component {
       </div>);
   }
 }
+
+DirectoryFinder.propTypes = {
+  name: PropTypes.string,
+  isValid: PropTypes.bool,
+  validateDirectory: PropTypes.func.isRequired
+}
+
+export default DirectoryFinder

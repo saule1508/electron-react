@@ -24,14 +24,11 @@ export const readContent = (dir) => {
     doc = yaml.safeLoad(fs.readFileSync(`${dir}/content.yml`));
     return {'error': null, 'doc': doc};
   } catch (e){
-    console.log('error');
-    console.log(e);
     return {'error': e, 'doc': null};
   }
 }
 
 export const validateInventory = (inv) => {
-  console.log(inv);
   if (inv.hostname && inv.ip){
     return {isValid: true, error: null};
   } else {

@@ -66,8 +66,7 @@ class Inventory extends Component{
 
 }
 
-Inventory.PropTypes = {
-  'initInventory' : PropTypes.func.isRequired,
+Inventory.propTypes = {
   'setInventory' : PropTypes.func.isRequired,
   'inventory': PropTypes.shape({
     hostname: PropTypes.string,

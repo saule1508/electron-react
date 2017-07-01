@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux'
-import HomeContainer from './homecontainer';
+import AppContainer from './appcontainer';
 import configureStore from './store/configureStore'
 
 import $ from "jquery"
@@ -17,7 +17,7 @@ class Main extends React.Component{
 		return(	
 
 	  	<Provider store={store}>
-	  		<HomeContainer />
+	  		<AppContainer />
 	  	</Provider>
 	  )
 	 }
