@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
-import { createLogger } from 'redux-logger';
+// import { createLogger } from 'redux-logger';
 // @flow
 /*
 const configureStore = () => {
@@ -24,6 +24,7 @@ function configureStore() {
   middleware.push(thunk);
 
   if (isDevMode){
+     const createLogger = require('redux-logger').createLogger;
   // Logging Middleware
 	  const logger = createLogger({
 	    level: 'info',
