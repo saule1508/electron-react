@@ -3,7 +3,6 @@ import React from 'react'
 const Navigator = ({prev,next,step}) => {
   let classPrev = "btn btn-primary";
   let classNext = "btn btn-primary";
-  console.log('step %d', step);
   if (step === 1){
     classPrev += " disabled";
   }

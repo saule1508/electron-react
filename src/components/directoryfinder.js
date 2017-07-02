@@ -44,7 +44,7 @@ class DirectoryFinder extends React.Component {
     let formClass = name && ! isValid ? 'has-danger' : 'has-sucess';
     return (
       <div>
-        <h4>Step 2. select directory with upgrade package</h4>
+        <h4>Directory with upgrade package</h4>
         <div className="card">
           <div className="card-block">
             <form className={formClass}>

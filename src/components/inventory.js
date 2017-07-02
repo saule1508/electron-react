@@ -28,7 +28,7 @@ class Inventory extends Component{
     let {hostname,ip} = this.props.inventory;
     return (
       <div>
-        <h2>Step 1. target server</h2>
+        <h4>Target server</h4>
         <div className="card">
           <div className="card-block">
             <form>
