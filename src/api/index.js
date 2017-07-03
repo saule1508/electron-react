@@ -1,6 +1,8 @@
 const fs = require('fs')
 const os = require('os')
 const yaml = require('js-yaml');
+const ini = require('ini');
+const { app } = require('electron').remote;
 
 export const initInventory = () => (
   {
@@ -35,4 +37,12 @@ export const validateInventory = (inv) => {
     return {isValid: false, error: 'All fields are mandatory'};    
   }
 
+}
+
+export const writeInventory = ( inv, directory ) => {
+  let dir = directory || app.getPath('home') + '/.deploy';
+  if (! fs.existsSync(`${dir}`)){
+    fs.mkdirSync(dir, 0774);
+  }
+  fs.writeFileSync(`${dir}/inventory', ini.stringify(inv));
 } 
