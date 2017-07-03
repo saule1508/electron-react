@@ -29,34 +29,34 @@ class Inventory extends Component{
     return (
       <div>
         <h4>Target server</h4>
-        <div className="card">
-          <div className="card-block">
+        <div className="panel">
+          <div className="panel-body">
             <form>
-                <div className="row">
-                  <div className="col-6">
-                    <label htmlFor="hostname">Hostname</label>
-                    <input type="text" 
-                      className="form-control"
-                      id="hostname" 
-                      aria-describedby="hostnameHelp" 
-                      placeholder="Enter hostname"
-                      value={hostname}
-                      onChange={this.handleHostChange}
-                      />
-                    <small id="hostnameHelp" className="form-text text-muted">The result of the hostname command</small>
-                  </div>
-                  <div className="col-6">
-                    <label htmlFor="IPaddress">IP address</label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      id="IP address" 
-                      value={ip}
-                      onChange={this.handleIPChange}
-                      aria-describedby="IPHelp" placeholder="Enter IP or 127.0.0.1 for local install" />
-                    <small id="IPHelp" className="form-text text-muted">set to 127.0.0.1 when working locally</small>
-                  </div>
+              <div className="row">
+                <div className="form-group col-md-6">
+                  <label htmlFor="hostname">Hostname</label>
+                  <input type="text" 
+                        className="form-control"
+                        id="hostname" 
+                        aria-describedby="hostnameHelp" 
+                        placeholder="Enter hostname"
+                        value={hostname}
+                        onChange={this.handleHostChange}
+                        />
+                  <small id="hostnameHelp" className="form-text text-muted">The result of the hostname command</small>
                 </div>
+                <div className="form-group col-md-6">                
+                  <label htmlFor="IPaddress">IP address</label>
+                  <input 
+                        type="text" 
+                        className="form-control" 
+                        id="IP address" 
+                        value={ip}
+                        onChange={this.handleIPChange}
+                        aria-describedby="IPHelp" placeholder="Enter IP or 127.0.0.1 for local install" />
+                  <small id="IPHelp" className="form-text text-muted">set to 127.0.0.1 when working locally</small>
+                </div>
+              </div>
             </form>
           </div>
         </div>

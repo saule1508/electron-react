@@ -45,11 +45,11 @@ class DirectoryFinder extends React.Component {
     return (
       <div>
         <h4>Directory with upgrade package</h4>
-        <div className="card">
-          <div className="card-block">
+        <div className="panel">
+          <div className="panel-body">
             <form className={formClass}>
                 <div className="row">
-                  <div className="col-6">
+                  <div className="col-md-6">
                     <input type="text" className="form-control" 
                       placeholder="Select source directory" value={name || ''} disabled/>              
                     {(name && ! isValid) ? 
@@ -57,7 +57,7 @@ class DirectoryFinder extends React.Component {
                     {(name && isValid) ? 
                         (<p className="form-control-static"style={STYLE.valid}>Directory is valid</p>) : ''}
                   </div>
-                  <div className="col-2">
+                  <div className="col-md-2">
                     <button type="submit" className="btn btn-default" onClick={this._dialog}>
                       Change
                     </button>

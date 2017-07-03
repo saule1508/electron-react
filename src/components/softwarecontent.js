@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 
 
 const SoftComponent = ({name, content, idx }) => {
-    let collapsedClass = idx === 1 ? "collapse collapse show" : "collapse";
+    let collapsedClass = idx === 1 ? "panel-collapse collapse in" : "panel-collapse collapse";
     return (
-      <div className="card">
-        <div className="card-header" role="tab" id={`heading${idx}`}>
-          <h5 className="mb-0">
+      <div className="panel panel-default">
+        <div className="panel-heading" role="tab" id={`heading${idx}`}>
+          <h4 className="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href={`#collapse${idx}`} aria-expanded="true" aria-controls={`#collapse${idx}`}>
               {name}
             </a>
-          </h5>
+          </h4>
         </div>
 
         <div id={`collapse${idx}`} className={collapsedClass} role="tabpanel" aria-labelledby={`heading${idx}`}>
@@ -80,7 +80,6 @@ class SoftwareContent extends Component {
 
   render(){
 
-    console.log(this.props.doc);
     let { components, product } = this.props.doc;
     let cmpList = [];
     for (var i in components){
@@ -90,13 +89,16 @@ class SoftwareContent extends Component {
     }
 
     return (
-      <div id="accordion" role="tablist" aria-multiselectable="true">
-        {cmpList.map((el,idx) => {
-          return (
-            <SoftComponent idx={idx} key={el} name={el} content={components[el]} />        
-            )
-          })
-        }
+      <div>
+        <h4>Review software to update</h4>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          {cmpList.map((el,idx) => {
+            return (
+              <SoftComponent idx={idx} key={el} name={el} content={components[el]} />        
+              )
+            })
+          }
+        </div>
       </div>
     )
   }

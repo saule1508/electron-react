@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/bootstrap-dark-evs.min.css" rel="stylesheet">
 </head>
 <body>
   <div id="App"></div>
@@ -14,6 +15,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import Main from './main';
+
+import $ from "jquery"
+window.jQuery = $ ;
+// global.Tether = require('tether'); (for bs 4)
+require('bootstrap');
+
 
 const render = () => {
   ReactDOM.render(

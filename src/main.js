@@ -3,10 +3,6 @@ import { Provider } from 'react-redux'
 import AppContainer from './appcontainer';
 import configureStore from './store/configureStore'
 
-import $ from "jquery"
-window.jQuery = $;
-global.Tether = require('tether');
-require('bootstrap');
 
 const store=configureStore();
 console.log(store);
