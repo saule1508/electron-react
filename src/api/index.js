@@ -84,5 +84,5 @@ export const writeInventory = ( inv, dir ) => {
   if (! fs.existsSync(`${dir}`)){
     fs.mkdirSync(dir);
   }
-  fs.writeFileSync(`${dir}/inventory`, `[xone]\n${inv.hostname}  ${inv.ip} ansible_connection=local\n`);
+  fs.writeFileSync(`${dir}/inventory`, `[xone]\n${inv.hostname} ansible_host=${inv.ip} ansible_connection=local\n`);
 } 

@@ -10,7 +10,6 @@ class Inventory extends Component{
   }
 
   componentDidMount(){
-    console.log(this.props);
     if (! this.props.inventory.hostname){
       this.props.getInventory();
     }

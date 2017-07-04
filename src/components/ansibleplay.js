@@ -43,7 +43,7 @@ class AnsiblePlay extends React.Component{
             </p>
             {this.state.started && (
               <AnsiblePlayConsole inventoryFile={this.props.inventory.inventoryFile} contentDirectory={this.props.directory.name} 
-                product={product.name} />
+                product={product} />
               )}
           </div>
         </div>

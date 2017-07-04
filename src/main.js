@@ -5,7 +5,7 @@ import configureStore from './store/configureStore'
 
 
 const store=configureStore();
-console.log(store);
+//console.log(store);
 
 class Main extends React.Component{
 
