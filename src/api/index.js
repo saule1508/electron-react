@@ -3,6 +3,7 @@ const os = require('os')
 const yaml = require('js-yaml');
 const { app } = require('electron').remote;
 
+
 export const initInventory = () => {
   let groups = readInventoryFromFile();
   if (groups.xone){
@@ -26,6 +27,7 @@ const readInventoryFromFile = () => {
   let dir = app.getPath('home') + '/.deploy';
   let groups = {};
   if (fs.existsSync(`${dir}/inventory`)){
+    console.log(`got file ${dir}/inventory`);
     let filecontent = fs.readFileSync(`${dir}/inventory`,'utf-8');
     let lines = filecontent.split('\n');
     let currentGroup=null;
@@ -45,31 +47,10 @@ const readInventoryFromFile = () => {
       }
     });
     groups[currentGroup]=hostInGroup;
+  } else {
+    console.log(`no file ${dir}/inventory`);
   }
   return groups;
-}
-
-
-const readInventoryFromFile() = () => {
-  if (fs.existsSync(`{$dir}/inventory`)){
-    let filecontent = fs.readFileSync(`{$dir}/inventory`,'utf-8');
-    let lines = filecontent.split('\n');
-    let currentGroup=null;
-    let groups = [];
-    let hostInGroup=[];
-    lines.forEach((l,idx)=>{
-      if (l[0] === '['){
-        if (currentGroup){
-          // terminate the group
-          groups.push({'group': currentGroup, 'hosts': hostInGroup});
-        }
-        currentGroup = l;
-        hostInGroup = [];
-      } else {
-        hostInGroup.push(l);
-      }
-    })
-  }
 }
 
 export const validateDirectory = (dir) => {
@@ -99,10 +80,9 @@ export const validateInventory = (inv) => {
 
 }
 
-export const writeInventory = ( inv, directory ) => {
-  let dir = directory || app.getPath('home') + '/.deploy';
+export const writeInventory = ( inv, dir ) => {
   if (! fs.existsSync(`${dir}`)){
-    fs.mkdirSync(dir, 0774);
+    fs.mkdirSync(dir);
   }
   fs.writeFileSync(`${dir}/inventory`, `[xone]\n${inv.hostname}  ${inv.ip} ansible_connection=local\n`);
 } 

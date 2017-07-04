@@ -46,7 +46,7 @@ const SoftComponentContent = ( { yaml } ) => {
       
     }
   }
-  console.log(cmpLists);
+  //console.log(cmpLists);
 
   return (
     <div>
@@ -91,7 +91,7 @@ class SoftwareContent extends Component {
     return (
       <div>
         <h4>Review software to update</h4>
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           {cmpList.map((el,idx) => {
             return (
               <SoftComponent idx={idx} key={el} name={el} content={components[el]} />        

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-const {spawn} = require('child_process');
 const os = require('os');
 import DirectoryFinderContainer from './components/directoryfindercontainer'
 import InventoryContainer from './components/inventorycontainer'
 import SoftwareContentContainer from './components/softwarecontentcontainer'
+import AnsiblePlayContainer from './components/ansibleplaycontainer'
 import Navigator from './components/navigator'
 
 class App extends React.Component {
@@ -77,6 +77,13 @@ class App extends React.Component {
           <div className="row" style={{'marginTop': 10}} >
             <div className="col-md-12">        
               <SoftwareContentContainer  />
+            </div>
+          </div>        
+        )}
+        {(this.state.step === 4) && (
+          <div className="row" style={{'marginTop': 10}} >
+            <div className="col-md-12">        
+              <AnsiblePlayContainer  />
             </div>
           </div>        
         )}

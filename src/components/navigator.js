@@ -8,7 +8,7 @@ const Navigator = ({prev,next,step}) => {
   if (step === 1){
     classPrev += " disabled";
   }
-  if (step >= 3){
+  if (step >= 4){
     classNext += " disabled";
   }  
   return (
