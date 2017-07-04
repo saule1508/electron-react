@@ -11,7 +11,7 @@ export const initInventory = () => {
     let elements=groups.xone[0].split(/[ ]+/);
     return {
       hostname: elements[0], 
-      ip: elements[1],
+      ip: elements[1].substr(elements[1].indexOf('=')+1),
       isValid: null
     }
   } else {
@@ -84,5 +84,6 @@ export const writeInventory = ( inv, dir ) => {
   if (! fs.existsSync(`${dir}`)){
     fs.mkdirSync(dir);
   }
-  fs.writeFileSync(`${dir}/inventory`, `[xone]\n${inv.hostname} ansible_host=${inv.ip} ansible_connection=local\n`);
+  let con = inv.ip === '127.0.0.1' ? 'local' : 'ssh';
+  fs.writeFileSync(`${dir}/inventory`, `[xone]\n${inv.hostname} ansible_host=${inv.ip} ansible_connection=${con}\n`);
 } 

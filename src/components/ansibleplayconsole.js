@@ -11,11 +11,8 @@ class AnsiblePlayConsole extends Component {
   }
 
   componentDidMount(){
-    console.log('cwd to : ' + `/evs-software/${this.props.product.name}/ansible`);
-    console.log(this.props.contentDirectory);
-    
     let ansible = spawn('ansible-playbook', ['-i', this.props.inventoryFile,
-      '--extra-vars="stage_dir=' + this.props.contentDirectory +'"',
+      '--extra-vars',`stage_dir="${this.props.contentDirectory}"`,
       'xone-upgrade.yml'], {cwd: `/evs-software/${this.props.product.name}/ansible`});
     
     // let ansible = spawn('ansible-playbook', ['--help'], {cwd: `/evs-software/${this.props.product.name}/ansible`});
