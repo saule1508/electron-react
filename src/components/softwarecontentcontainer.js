@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 } 
 
 const mapDispatchToProps = (dispatch) => ({
-  getRPMVersions: () => {
+  fetchRPMVersions: () => {
     return dispatch(fetchRPMVersions());
   },
   fetchImageVersions: () => {

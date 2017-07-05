@@ -1,17 +1,17 @@
 // @flow
 import { combineReducers } from 'redux'
 import {  
-  FETCH_IMAGESVERSIONS_SUCCESS, FETCH_IMAGESVERSIONS_FAILURE,
+  FETCH_IMAGEVERSIONS_SUCCESS, FETCH_IMAGEVERSIONS_FAILURE,
   FETCH_RPMVERSIONS_SUCCESS, FETCH_RPMVERSIONS_FAILURE } from '../actions/versions';
 
 const RPM_INIT_STATE = {
-  rpms: {},
+  list: {},
   error: null,
   isLoading: false
 }
 
 const DOCKER_INIT_STATE = {
-  images: {},
+  list: {},
   error: null,
   isLoading: false
 }
@@ -21,8 +21,8 @@ const rpms = (state = RPM_INIT_STATE, action) => {
     case FETCH_RPMVERSIONS_FAILURE:
       return Object.assign({}, state, { error: action.payload });
     case FETCH_RPMVERSIONS_SUCCESS:
-      let newList = Object.assign({},state.rpms,action.payload);
-      return Object.assign({}, state, { rpms: newList });
+      let newList = Object.assign({},state.list,action.payload);
+      return Object.assign({}, state, { list: newList });
     default:
       return state;
   }
@@ -30,11 +30,11 @@ const rpms = (state = RPM_INIT_STATE, action) => {
 
 const images = (state = DOCKER_INIT_STATE, action) => {
   switch (action.type) {
-    case FETCH_IMAGESVERSIONS_FAILURE:
+    case FETCH_IMAGEVERSIONS_FAILURE:
       return Object.assign({}, state, { error: action.payload });
-    case FETCH_IMAGESVERSIONS_SUCCESS:
-      let newList = Object.assign({},state.images,action.payload);
-      return Object.assign({}, state, { images: newList });
+    case FETCH_IMAGEVERSIONS_SUCCESS:
+      let newList = Object.assign({},state.list,action.payload);
+      return Object.assign({}, state, { list: newList });
     default:
       return state;
   }

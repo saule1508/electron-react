@@ -1,8 +1,8 @@
 {
-    "name": "myinstaller",
-    "productName": "myinstaller",
-    "version": "1.0.0",
-    "description": "My Electron application description",
+    "name": "evs_installer",
+    "productName": "EVSinstaller",
+    "version": "0.1.0",
+    "description": "EVS installer application electron",
     "main": "src/index.js",
     "scripts": {
         "start": "electron-forge start",
@@ -29,7 +29,7 @@
             },
             "electronPackagerConfig": {},
             "electronWinstallerConfig": {
-                "name": "myinstaller"
+                "name": "evs_installer"
             },
             "electronInstallerDebian": {},
             "electronInstallerRedhat": {},
@@ -62,7 +62,7 @@
         "babel-plugin-transform-es2015-classes": "^6.24.1",
         "babel-preset-env": "^1.5.2",
         "babel-preset-react": "^6.24.1",
-        "electron-builder": "^19.8.0",
+        "electron-builder": "^19.12.0",
         "electron-forge": "^3.0.5",
         "electron-prebuilt-compile": "1.6.11",
         "redux-logger": "^3.0.6"

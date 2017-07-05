@@ -82,10 +82,15 @@ class SoftwareContent extends Component {
     this.props.fetchImageVersions();
     let cmps = this.props.doc.components;
     for (var i in cmps){
-      if (cmps.hasOwnProperty(i) && i.type === 'rpm'){
-        this.props.fetchRPMVersions(i.name);
-      }
-    }    
+      if (cmps.hasOwnProperty(i) && cmps[i].hasOwnProperty('rpm')){
+        console.log(' doing i');
+        for (var j in cmps[i].rpm){
+          if (cmps[i]['rpm'].hasOwnProperty(j)){
+            this.props.fetchRPMVersions(cmps[i]['rpm'][j].name);
+          }
+        }
+      }    
+    }
   }
 
   render(){
@@ -118,7 +123,9 @@ SoftwareContent.propTypes = {
   'doc': PropTypes.object.isRequired,
   'error': PropTypes.string,
   'rpms_versions': PropTypes.object,
-  'images_versions': PropTypes.object
+  'images_versions': PropTypes.object,
+  fetchRPMVersions: PropTypes.func.isRequired,
+  fetchImageVersions: PropTypes.func.isRequired
 }
 
 export default SoftwareContent
