@@ -3,6 +3,13 @@ const os = require('os')
 const yaml = require('js-yaml');
 const { app } = require('electron').remote;
 
+export const getDefaultDirectory = () => {
+  if (fs.existsSync('/evs-software')){
+    return '/evs-software'
+  } else {
+    return app.getPath('exe');
+  }
+}
 
 export const initInventory = () => {
   let groups = readInventoryFromFile();

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { validateInventory } from './actions/inventory'
+import { validateInventory, writeInventory } from './actions/inventory'
 import { readContent } from './actions/content'
 import App from './app'
 
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => ({
 	validateInventory: (inv) => {
 		return dispatch(validateInventory(inv));
 	},
+  writeInventory: () => {
+    return dispatch(writeInventory());
+  },
   readContent: (directory) => {
     return dispatch(readContent(directory))
   }

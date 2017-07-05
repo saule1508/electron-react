@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 const { dialog } = require('electron').remote;
 const { app } = require('electron').remote;
-
+import { getDefaultDirectory } from '../api/index'
 
 const STYLE = {
   'invalid' : {'color' : 'red'},
@@ -25,7 +25,9 @@ class DirectoryFinder extends React.Component {
     if (evt){
       evt.preventDefault();
     }
-    let myFile = getFile(this.props.name || app.getAppPath());
+    let dir = this.props.name || getDefaultDirectory();
+    console.log(dir);
+    let myFile = getFile(dir);
     if (myFile){
       this.props.validateDirectory(myFile[0]);
     }

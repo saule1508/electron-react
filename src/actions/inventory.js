@@ -53,7 +53,6 @@ export const validateInventory = () => {
   return (dispatch,getState) => {
     let inv = getState().inventory;
     let i = apiValidateInventory(inv);
-    console.log(i);
 
     if (i.isValid) {
       return Promise.resolve(dispatch(validateInventorySuccess()));

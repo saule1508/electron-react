@@ -23,6 +23,7 @@ class App extends React.Component {
     
     this.props.validateInventory().then(()=>{
       if (this.props.inventory.isValid){
+        this.props.writeInventory();
         this.setState({step: this.state.step + 1})
       }
     });
