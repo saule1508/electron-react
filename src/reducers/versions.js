@@ -16,7 +16,7 @@ const DOCKER_INIT_STATE = {
   isLoading: false
 }
 
-const rpms = (state = RPM_INIT_STATE, action) => {
+const rpm = (state = RPM_INIT_STATE, action) => {
   switch (action.type) {
     case FETCH_RPMVERSIONS_FAILURE:
       return Object.assign({}, state, { error: action.payload });
@@ -28,7 +28,7 @@ const rpms = (state = RPM_INIT_STATE, action) => {
   }
 }
 
-const images = (state = DOCKER_INIT_STATE, action) => {
+const image = (state = DOCKER_INIT_STATE, action) => {
   switch (action.type) {
     case FETCH_IMAGEVERSIONS_FAILURE:
       return Object.assign({}, state, { error: action.payload });
@@ -41,6 +41,6 @@ const images = (state = DOCKER_INIT_STATE, action) => {
 }
 
 export default combineReducers({
-  rpms,
-  images
+  rpm,
+  image
 })

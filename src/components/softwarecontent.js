@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
 
-const SoftComponent = ({name, content, idx }) => {
+const SoftComponent = ({name, content, idx, rpm_versions, image_versions }) => {
     let collapsedClass = idx === 1 ? "panel-collapse collapse in" : "panel-collapse collapse";
     return (
       <div className="panel panel-default">
@@ -16,14 +16,16 @@ const SoftComponent = ({name, content, idx }) => {
 
         <div id={`collapse${idx}`} className={collapsedClass} role="tabpanel" aria-labelledby={`heading${idx}`}>
           <div className="card-block">
-            <SoftComponentContent yaml={content} />        
+            <SoftComponentContent yaml={content} 
+                rpm_versions={rpm_versions} 
+                image_versions={image_versions} />        
           </div>
         </div>
       </div>
     )
 }
 
-const SoftComponentContent = ( { yaml } ) => {
+const SoftComponentContent = ( { yaml, rpm_versions, image_versions } ) => {
   let cmpTypes = [];
   let cmpLists = [];
   for (var i in yaml){
@@ -37,10 +39,17 @@ const SoftComponentContent = ( { yaml } ) => {
           let cmp = {name: j, file: fileName, type: cmpType};
           if (cmpType === 'docker'){
             cmp.version = el[j].tag;
+            if (image_versions[j]){
+              cmp.prodVersion = rpm_versions[i].tag;
+            }
           }
           if (cmpType === 'rpm' || cmpType === 'tar'){
             cmp.version = fileName.substr(fileName.indexOf(".") + 1).slice(0,-4); 
+            if (rpm_versions[j]){
+              cmp.prodVersion = rpm_versions[i];
+            }
           }
+
           cmpLists.push(cmp);
         }
       }
@@ -54,14 +63,15 @@ const SoftComponentContent = ( { yaml } ) => {
       <table className="table table-inverse">
         <thead>
           <tr>
-            <th>Name</th><th>Version</th><th>Type</th>
+            <th>Name</th><th>Current</th><th>Available</th><th>Type</th>
           </tr>
         </thead>
         <tbody>
           {cmpLists.map((el,idx)=>{
+            let rowClass=(el.prodVersion && el.prodVersion !== el.version) ? 'success' : '';
             return (
-              <tr key={idx}>
-                <td>{el.name}</td><td>{el.version || ''}</td><td>{el.type}</td>
+              <tr key={idx} className={rowClass} >
+                <td>{el.name}</td><td>{el.prodVersion || ''}</td><td>{el.version || ''}</td><td>{el.type}</td>
               </tr>
               )
             })
@@ -109,7 +119,9 @@ class SoftwareContent extends Component {
         <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           {cmpList.map((el,idx) => {
             return (
-              <SoftComponent idx={idx} key={el} name={el} content={components[el]} />        
+              <SoftComponent idx={idx} key={el} name={el} content={components[el]} 
+                rpm_versions={this.props.rpm_versions} 
+                image_versions={this.props.image_versions} />        
               )
             })
           }
@@ -122,8 +134,8 @@ class SoftwareContent extends Component {
 SoftwareContent.propTypes = {
   'doc': PropTypes.object.isRequired,
   'error': PropTypes.string,
-  'rpms_versions': PropTypes.object,
-  'images_versions': PropTypes.object,
+  'rpm_versions': PropTypes.object,
+  'image_versions': PropTypes.object,
   fetchRPMVersions: PropTypes.func.isRequired,
   fetchImageVersions: PropTypes.func.isRequired
 }

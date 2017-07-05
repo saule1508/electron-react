@@ -6,8 +6,8 @@ const mapStateToProps = (state) => {
 	return {
 		doc: state.content.doc,
     error: state.content.error,
-    rpms_versions: state.versions.rpms,
-    images_versions: state.versions.images
+    rpm_versions: state.versions.rpm.list,
+    image_versions: state.versions.image.list
 	}
 } 
 
