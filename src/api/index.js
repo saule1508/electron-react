@@ -88,7 +88,7 @@ export const writeInventory = ( inv, dir ) => {
   fs.writeFileSync(`${dir}/inventory`, `[xone]\n${inv.hostname} ansible_host=${inv.ip} ansible_connection=${con}\n`);
 } 
 
-export const getRPMVersions(host,component){
+export const getRPMVersions = (host,component) => {
   const { spawn } = require('child_process');
   let stdout = '';
   let stderr = '';
@@ -129,7 +129,7 @@ export const getRPMVersions(host,component){
 
 }
 
-const getDockerVersions = (host) => {
+export const getDockerVersions = (host) => {
   const { spawn } = require('child_process');
   let stdout = '';
   let stderr = '';

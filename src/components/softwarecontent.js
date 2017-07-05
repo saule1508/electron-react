@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 
 
 const SoftComponent = ({name, content, idx }) => {
@@ -76,7 +77,16 @@ class SoftwareContent extends Component {
   constructor(props){
     super(props);
   }
-  
+
+  componentDidMount(){
+    this.props.fetchImageVersions();
+    let cmps = this.props.doc.components;
+    for (var i in cmps){
+      if (cmps.hasOwnProperty(i) && i.type === 'rpm'){
+        this.props.fetchRPMVersions(i.name);
+      }
+    }    
+  }
 
   render(){
 
@@ -102,6 +112,13 @@ class SoftwareContent extends Component {
       </div>
     )
   }
+}
+
+SoftwareContent.propTypes = {
+  'doc': PropTypes.object.isRequired,
+  'error': PropTypes.string,
+  'rpms_versions': PropTypes.object,
+  'images_versions': PropTypes.object
 }
 
 export default SoftwareContent
