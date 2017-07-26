@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 
 const SoftComponent = ({name, content, idx, rpm_versions, image_versions }) => {
+  console.log('in SoftComponent, dumping image_versions');
+  console.log(image_versions);
     let collapsedClass = idx === 1 ? "panel-collapse collapse in" : "panel-collapse collapse";
     return (
       <div className="panel panel-default">
@@ -38,15 +40,19 @@ const SoftComponentContent = ( { yaml, rpm_versions, image_versions } ) => {
           let fileName = el[j].file;
           let cmp = {name: j, file: fileName, type: cmpType};
           if (cmpType === 'docker'){
+            cmp.image = el[j].name;
             cmp.version = el[j].tag;
-            if (image_versions[j]){
-              cmp.prodVersion = rpm_versions[i].tag;
+            if (image_versions[cmp.image]){
+              console.log(' got image_versions for %s',cmp.image);
+              cmp.prodVersion = image_versions[cmp.image].tag;
+            } else {
+              console.log(' no image_versions for %s',cmp.image);
             }
           }
           if (cmpType === 'rpm' || cmpType === 'tar'){
             cmp.version = fileName.substr(fileName.indexOf(".") + 1).slice(0,-4); 
             if (rpm_versions[j]){
-              cmp.prodVersion = rpm_versions[i];
+              cmp.prodVersion = rpm_versions[j];
             }
           }
 
@@ -68,7 +74,14 @@ const SoftComponentContent = ( { yaml, rpm_versions, image_versions } ) => {
         </thead>
         <tbody>
           {cmpLists.map((el,idx)=>{
-            let rowClass=(el.prodVersion && el.prodVersion !== el.version) ? 'success' : '';
+            let rowClass;
+            if (el.prodVersion && el.prodVersion < el.version){
+              rowClass='success';
+            }
+            if (el.prodVersion && el.prodVersion > el.version){
+              rowClass='danger';
+            }
+
             return (
               <tr key={idx} className={rowClass} >
                 <td>{el.name}</td><td>{el.prodVersion || ''}</td><td>{el.version || ''}</td><td>{el.type}</td>
